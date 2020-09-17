@@ -1,4 +1,5 @@
-﻿using EventSourcing_Pedido.Aplicacao.Dtos;
+﻿using System.Threading.Tasks;
+using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Aplicacao.Mapeadores;
 
@@ -13,11 +14,11 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             _pedidoRepositorio = pedidoRepositorio;
         }
 
-        public void Criar(PedidoDto pedidoDto)
+        public async Task Criar(PedidoDto pedidoDto)
         {
             var pedido = MapeadorDePedido.Mapear(pedidoDto);
             
-            _pedidoRepositorio.Salvar(pedido);
+            await _pedidoRepositorio.Salvar(pedido);
         }
     }
 }

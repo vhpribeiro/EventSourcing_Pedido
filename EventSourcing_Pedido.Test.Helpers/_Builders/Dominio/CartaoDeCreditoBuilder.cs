@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using EventSourcing_Pedido.Dominio;
 using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 
 namespace EventSourcing_Pedido.Test.Helpers._Builders.Dominio

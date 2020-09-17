@@ -8,9 +8,9 @@ namespace EventSourcing_Pedido.Aplicacao.Mapeadores
     {
         public static CartaoDeCredito Mapear(CartaoDeCreditoDto cartaoDeCreditoDto)
         {
-            if (cartaoDeCreditoDto == null) throw new Exception();
-            
-            return new CartaoDeCredito(cartaoDeCreditoDto.Numero, cartaoDeCreditoDto.Nome, cartaoDeCreditoDto.CVV, cartaoDeCreditoDto.Expiracao);
+            return cartaoDeCreditoDto == null ? 
+                null : 
+                new CartaoDeCredito(cartaoDeCreditoDto.Numero, cartaoDeCreditoDto.Nome, cartaoDeCreditoDto.CVV, cartaoDeCreditoDto.Expiracao);
         }
     }
 }

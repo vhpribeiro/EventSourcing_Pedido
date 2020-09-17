@@ -1,9 +1,10 @@
-﻿using EventSourcing_Pedido.Dominio.Pedidos;
+﻿using System.Threading.Tasks;
+using EventSourcing_Pedido.Dominio.Pedidos;
 
 namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
 {
     public interface IPedidoRepositorio
     {
-        void Salvar(Pedido pedido);
+        Task Salvar(Pedido pedido);
     }
 }

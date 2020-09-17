@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.Test.H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.Aplicacao", "EventSourcing_Pedido.Aplicacao\EventSourcing_Pedido.Aplicacao.csproj", "{3A63C6CF-B9EB-4E01-9710-B7BAEDB1C719}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.Aplicacao.Test", "EventSourcing_Pedido.Aplicacao.Test\EventSourcing_Pedido.Aplicacao.Test.csproj", "{42D8DEC1-F23D-45DE-A50E-F5337965B876}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,7 @@ Global
 		{C21B6533-AE79-4E64-A6CE-BD43A7CD8E90} = {43234A46-2BD1-41A6-BCF4-3E96A93D3D32}
 		{725F2620-E491-4AAD-8075-29953E7DECA0} = {43234A46-2BD1-41A6-BCF4-3E96A93D3D32}
 		{3A63C6CF-B9EB-4E01-9710-B7BAEDB1C719} = {C0A1441F-C2C5-4FDA-81BF-4A6695C1BFCD}
+		{42D8DEC1-F23D-45DE-A50E-F5337965B876} = {43234A46-2BD1-41A6-BCF4-3E96A93D3D32}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{191E47BE-8911-4213-BECF-2211D5C4ECA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +43,9 @@ Global
 		{3A63C6CF-B9EB-4E01-9710-B7BAEDB1C719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A63C6CF-B9EB-4E01-9710-B7BAEDB1C719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A63C6CF-B9EB-4E01-9710-B7BAEDB1C719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D8DEC1-F23D-45DE-A50E-F5337965B876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D8DEC1-F23D-45DE-A50E-F5337965B876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D8DEC1-F23D-45DE-A50E-F5337965B876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D8DEC1-F23D-45DE-A50E-F5337965B876}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

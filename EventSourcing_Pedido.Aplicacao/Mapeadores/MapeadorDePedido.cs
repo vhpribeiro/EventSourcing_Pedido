@@ -9,7 +9,7 @@ namespace EventSourcing_Pedido.Aplicacao.Mapeadores
     {
         public static Pedido Mapear(PedidoDto pedidoDto)
         {
-            if (pedidoDto == null) throw new Exception();
+            if (pedidoDto == null) return null;
 
             var cartaoDeCredito = MapeadorDeCartaoDeCredito.Mapear(pedidoDto.CartaoDeCreditoDto);
             return new Pedido(pedidoDto.Produto, pedidoDto.Quantidade, pedidoDto.Valor, cartaoDeCredito);
