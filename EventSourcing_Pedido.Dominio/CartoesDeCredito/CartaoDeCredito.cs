@@ -1,13 +1,18 @@
-﻿using EventSourcing_Pedido.Dominio._Helper;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using EventSourcing_Pedido.Dominio._Helper;
 
 namespace EventSourcing_Pedido.Dominio.CartoesDeCredito
 {
     public class CartaoDeCredito
     {
-        public string Numero { get; }
-        public string Nome { get; }
-        public string CVV { get; }
-        public string Expiracao { get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Numero { get; set; }
+        public string Nome { get; set; }
+        public string CVV { get; set; }
+        public string Expiracao { get; set; }
+
+        public CartaoDeCredito() {}
 
         public CartaoDeCredito(string numero, string nome, string cvv, string expiracao)
         {

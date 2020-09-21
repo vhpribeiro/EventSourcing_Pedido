@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 using EventSourcing_Pedido.Dominio._Helper;
 using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 
@@ -7,18 +7,20 @@ namespace EventSourcing_Pedido.Dominio.Pedidos
 {
     public class Pedido
     {
-        [JsonIgnore]
-        public Guid Id { get; }
-        public string Produto { get; }
-        public int Quantidade { get; }
-        public decimal Valor { get; }
-        public CartaoDeCredito CartaoDeCredito { get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public string Produto { get; set; }
+        public int Quantidade { get; set; }
+        public decimal Valor { get; set; }
+        public int CartaoDeCreditoId { get; set; }
+        public CartaoDeCredito CartaoDeCredito { get; set; }
+
+        public Pedido() {}
 
         public Pedido(string produto, int quantidade, decimal valor, CartaoDeCredito cartaoDeCredito)
         {
             ValidarInformacoes(produto, quantidade, valor, cartaoDeCredito);
             
-            Id = Guid.NewGuid();
             Produto = produto;
             Quantidade = quantidade;
             Valor = valor;

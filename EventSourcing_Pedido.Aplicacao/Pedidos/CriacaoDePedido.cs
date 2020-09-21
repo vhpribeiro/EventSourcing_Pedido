@@ -5,7 +5,7 @@ using EventSourcing_Pedido.Aplicacao.Mapeadores;
 
 namespace EventSourcing_Pedido.Aplicacao.Pedidos
 {
-    public class CriacaoDePedido
+    public class CriacaoDePedido : ICriacaoDePedido
     {
         private readonly IPedidoRepositorio _pedidoRepositorio;
 
