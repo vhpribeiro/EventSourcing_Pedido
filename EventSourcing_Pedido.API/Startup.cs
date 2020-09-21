@@ -1,3 +1,4 @@
+using EventSourcing_Pedido.API.Configuracoes;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Aplicacao.Pedidos;
 using EventSourcing_Pedido.Infra.Contexts;
@@ -24,11 +25,7 @@ namespace EventSourcing_Pedido.API
         {
             services.AddControllers();
             services.AddDbContext<PedidoContext>();
-            services.AddSingleton<IConfiguration>(provider => _configuration);
-            services.AddScoped<ICriacaoDePedido, CriacaoDePedido>();
-            services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
-            services.AddScoped<PedidoContext, PedidoContext>();
-
+            ConfigurarInjecaoDeDependencia.Configurar(services, _configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,5 @@
 ﻿using EventSourcing_Pedido.Dominio.CartoesDeCredito;
+using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +19,18 @@ namespace EventSourcing_Pedido.Infra.Contexts
         
         public DbSet<Pedido> Pedidos { get; set; }
         public DbSet<CartaoDeCredito> CartoesDeCreditos { get; set; }
+        public DbSet<Evento> Eventos { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Password=vhpr1706;Persist Security Info=True;User ID=sa;Initial Catalog=EventSourcingProjeto;Data Source=DESKTOP-NEOJFCR\\MSSQLSERVER2019",
                 b => b.MigrationsAssembly("EventSourcing_Pedido.Infra"));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PedidoCriadoEvento>();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

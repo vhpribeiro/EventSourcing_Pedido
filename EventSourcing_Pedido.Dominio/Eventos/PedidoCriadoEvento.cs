@@ -2,8 +2,10 @@
 
 namespace EventSourcing_Pedido.Dominio.Eventos
 {
-    public class PedidoCriadoEvento : Evento<Pedido>
+    public class PedidoCriadoEvento : Evento
     {   
+        public PedidoCriadoEvento() {}
+        
         public PedidoCriadoEvento(Pedido pedido) : base(pedido.Id, pedido)
         {
         }

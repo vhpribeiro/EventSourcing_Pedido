@@ -15,7 +15,7 @@ namespace EventSourcing_Pedido.Dominio.Test.Eventos
             var pedido = PedidoBuilder.Novo().ComCartaoDeCredito(cartaoDeCredito).Criar();
             var eventoEsperado = new
             {
-                IdDoObjeto = pedido.Id,
+                IdDoPedido = pedido.Id,
                 MetaDado = JsonConvert.SerializeObject(pedido)
             };
             
