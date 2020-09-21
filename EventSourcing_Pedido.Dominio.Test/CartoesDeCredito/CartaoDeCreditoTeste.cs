@@ -35,7 +35,7 @@ namespace EventSourcing_Pedido.Dominio.Test.CartoesDeCredito
             
             var cartaoDeCreditoObtido = new CartaoDeCredito(_numero, _nome, _cvv, _expiracao);
             
-            cartaoDeCreditoObtido.ToExpectedObject().ShouldMatch(cartaoDeCreditoEsperado);
+            cartaoDeCreditoEsperado.ToExpectedObject().ShouldMatch(cartaoDeCreditoObtido);
         }
 
         [Theory]

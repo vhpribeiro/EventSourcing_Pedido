@@ -1,4 +1,5 @@
-﻿using EventSourcing_Pedido.Aplicacao.Dtos;
+﻿using System.Threading.Tasks;
+using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.Pedidos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ namespace EventSourcing_Pedido.API.Controllers
         }
         
         [HttpPost]
-        public ActionResult Post([FromBody] PedidoDto pedidoDto)
+        public async Task<ActionResult> Post([FromBody] PedidoDto pedidoDto)
         {
-            _criacaoDePedido.Criar(pedidoDto);
+            await _criacaoDePedido.Criar(pedidoDto);
             return Ok(true);
         }
     }
