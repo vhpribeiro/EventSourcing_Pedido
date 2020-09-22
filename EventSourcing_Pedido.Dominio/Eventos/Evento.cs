@@ -9,9 +9,9 @@ namespace EventSourcing_Pedido.Dominio.Eventos
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string MetaDado { get; set; }
-        public DateTime Data { get; set; }
-        public int IdDoPedido { get; set; }
+        public string MetaDado { get; }
+        public DateTime Data { get; }
+        public int IdDoPedido { get; }
 
         public Evento() {}
 

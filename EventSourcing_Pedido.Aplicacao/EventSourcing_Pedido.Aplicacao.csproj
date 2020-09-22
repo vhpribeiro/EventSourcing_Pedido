@@ -8,4 +8,10 @@
       <ProjectReference Include="..\EventSourcing_Pedido.Dominio\EventSourcing_Pedido.Dominio.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Castle.Core" Version="4.4.0" />
+      <PackageReference Include="EasyNetQ" Version="5.2.2" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.8" />
+    </ItemGroup>
+
 </Project>

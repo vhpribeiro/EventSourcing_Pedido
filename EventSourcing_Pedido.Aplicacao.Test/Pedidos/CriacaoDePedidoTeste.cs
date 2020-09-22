@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Bogus;
+using EasyNetQ;
 using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Aplicacao.Mapeadores;
@@ -18,14 +19,16 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
         private readonly Faker _faker;
         private readonly Mock<IPedidoRepositorio> _pedidoRepositorio;
         private readonly CriacaoDePedido _criacaoDePedido;
-        private Mock<IEventoRepositorio> _eventoRepositorio;
+        private readonly Mock<IEventoRepositorio> _eventoRepositorio;
+        private readonly Mock<IBus> _mensageria;
 
         public CriacaoDePedidoTeste()
         {
             _faker = new Faker();
             _pedidoRepositorio = new Mock<IPedidoRepositorio>();
             _eventoRepositorio = new Mock<IEventoRepositorio>();
-            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object);
+            _mensageria = new Mock<IBus>();
+            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
         }
         
         
