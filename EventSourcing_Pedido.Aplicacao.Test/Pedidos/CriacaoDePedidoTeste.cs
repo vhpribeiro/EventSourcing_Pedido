@@ -9,8 +9,10 @@ using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcing_Pedido.Test.Helpers._Builders.Dominio;
 using ExpectedObjects;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
 {
@@ -21,16 +23,23 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
         private readonly CriacaoDePedido _criacaoDePedido;
         private readonly Mock<IEventoRepositorio> _eventoRepositorio;
         private readonly Mock<IBus> _mensageria;
+        private Mock<IConfiguration> _configuration;
+        private const string _nomeDaQueue = "PedidoPagamento";
 
         public CriacaoDePedidoTeste()
         {
             _faker = new Faker();
             _pedidoRepositorio = new Mock<IPedidoRepositorio>();
             _eventoRepositorio = new Mock<IEventoRepositorio>();
+            _configuration = new Mock<IConfiguration>();
             _mensageria = new Mock<IBus>();
-            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
+            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object, _configuration.Object);
+            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
+            var configurationSection = new Mock<IConfigurationSection>();
+            configurationSection.Setup(cs => cs.Value).Returns(_nomeDaQueue);
+            _configuration.Setup(c => c.GetSection(It.IsAny<string>())).Returns(configurationSection.Object);
         }
-        //TODO testar se a mensageria está sendo chamada
         
         [Fact]
         public async Task Deve_criar_um_pedido()
@@ -55,8 +64,6 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             };
             var pedidoEsperado = PedidoBuilder.Novo().ComProduto(produto).ComQuantidade(quantidade).ComValor(valor)
                 .ComCartaoDeCredito(cartaoDeCredito).Criar();
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
-            _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
             
             await _criacaoDePedido.Criar(pedidoDto);
             
@@ -88,13 +95,38 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             var pedidoCriado = PedidoBuilder.Novo().ComProduto(produto).ComQuantidade(quantidade).ComValor(valor)
                 .ComCartaoDeCredito(cartaoDeCredito).Criar();
             var eventoEsperado = new PedidoCriadoEvento(pedidoCriado);
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
-            _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
             
             await _criacaoDePedido.Criar(pedidoDto);
             
             _eventoRepositorio.Verify(pr => pr.Salvar(It.Is<PedidoCriadoEvento>(evento 
                 => evento.ToExpectedObject(ctx => ctx.Ignore(p => p.Id)).Matches(eventoEsperado))));
+        }
+
+        [Fact]
+        public async Task Deve_notificar_que_pedido_foi_criado()
+        {
+            var produto = _faker.Random.Word();
+            var quantidade = _faker.Random.Int(0);
+            var valor = _faker.Random.Decimal();
+            var cartaoDeCreditoDto = new CartaoDeCreditoDto
+            {
+                Numero = _faker.Random.Int(0).ToString(),
+                Nome = _faker.Person.FirstName,
+                CVV = _faker.Random.Int(100, 999).ToString(),
+                Expiracao = "03/27"
+            };
+            var cartaoDeCredito = MapeadorDeCartaoDeCredito.Mapear(cartaoDeCreditoDto);
+            var pedidoDto = new PedidoDto
+            {
+                Produto = produto,
+                Quantidade = quantidade,
+                Valor = valor,
+                CartaoDeCreditoDto = cartaoDeCreditoDto
+            };
+
+            await _criacaoDePedido.Criar(pedidoDto);
+
+            _mensageria.Verify(m => m.SendAsync(_nomeDaQueue, It.IsAny<string>()));
         }
     }
 }
