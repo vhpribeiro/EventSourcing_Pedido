@@ -23,14 +23,29 @@ namespace EventSourcing_Pedido.Infra.Contexts
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //TODO jogar essa connection string no appsettings
             optionsBuilder.UseSqlServer("Password=vhpr1706;Persist Security Info=True;User ID=sa;Initial Catalog=EventSourcingProjeto;Data Source=DESKTOP-NEOJFCR\\MSSQLSERVER2019",
                 b => b.MigrationsAssembly("EventSourcing_Pedido.Infra"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PedidoCriadoEvento>();
+            ConfigurarPedidoCriadoEvento(modelBuilder);
+
             base.OnModelCreating(modelBuilder);
+        }
+
+        private static void ConfigurarPedidoCriadoEvento(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.Data)
+                .HasColumnType("datetime2");
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.IdDoPedido)
+                .HasColumnType("int");
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.MetaDado)
+                .HasColumnType("nvarchar(max)");
         }
     }
 }

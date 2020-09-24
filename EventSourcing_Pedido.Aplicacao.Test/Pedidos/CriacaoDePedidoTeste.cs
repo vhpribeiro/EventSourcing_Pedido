@@ -30,7 +30,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             _mensageria = new Mock<IBus>();
             _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
         }
-        
+        //TODO testar se a mensageria está sendo chamada
         
         [Fact]
         public async Task Deve_criar_um_pedido()

@@ -18,7 +18,6 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         {
             _pedidoRepositorio = pedidoRepositorio;
             _eventoRepositorio = eventoRepositorio;
-            //TODO jogar isso para o appsettings
             _mensageria = mensageria;
         }
 
