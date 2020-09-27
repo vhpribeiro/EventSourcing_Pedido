@@ -1,4 +1,5 @@
-﻿using EventSourcing_Pedido.Dominio.Eventos;
+﻿using System;
+using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Test.Helpers._Builders.Dominio;
 using ExpectedObjects;
 using Newtonsoft.Json;
@@ -16,12 +17,18 @@ namespace EventSourcing_Pedido.Dominio.Test.Eventos
             var eventoEsperado = new
             {
                 IdDoPedido = pedido.Id,
-                MetaDado = JsonConvert.SerializeObject(pedido)
+                Data = DateTime.Now,
+                NomeDoUsuario = cartaoDeCredito.Nome,
+                NumeroDoCartao = cartaoDeCredito.Numero,
+                Produto = pedido.Produto,
+                Valor = pedido.Valor,
             };
             
             var eventoObtido = new PedidoCriadoEvento(pedido);
             
-            eventoEsperado.ToExpectedObject().ShouldMatch(eventoObtido);
+            eventoEsperado.ToExpectedObject(ctx 
+                => ctx.Ignore(e => e.Data))
+                .ShouldMatch(eventoObtido);
         }
     }
 }
