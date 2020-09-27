@@ -6,7 +6,7 @@ namespace EventSourcing_Pedido.Dominio.Eventos
     {   
         public PedidoCriadoEvento() {}
         
-        public PedidoCriadoEvento(Pedido pedido) : base(pedido.Id, pedido)
+        public PedidoCriadoEvento(Pedido pedido) : base(pedido.Id, pedido.CartaoDeCredito.Nome, pedido.CartaoDeCredito.Numero, pedido.Produto, pedido.Valor)
         {
         }
     }

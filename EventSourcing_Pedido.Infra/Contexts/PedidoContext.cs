@@ -44,8 +44,17 @@ namespace EventSourcing_Pedido.Infra.Contexts
                 .Property(e => e.IdDoPedido)
                 .HasColumnType("int");
             modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.MetaDado)
+                .Property(e => e.NomeDoUsuario)
                 .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.NumeroDoCartao)
+                .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.Produto)
+                .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity<PedidoCriadoEvento>()
+                .Property(e => e.Valor)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }

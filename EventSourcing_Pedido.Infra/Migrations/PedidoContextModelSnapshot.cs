@@ -50,17 +50,8 @@ namespace EventSourcing_Pedido.Infra.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Data")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("IdDoPedido")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MetaDado")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -99,6 +90,24 @@ namespace EventSourcing_Pedido.Infra.Migrations
             modelBuilder.Entity("EventSourcing_Pedido.Dominio.Eventos.PedidoCriadoEvento", b =>
                 {
                     b.HasBaseType("EventSourcing_Pedido.Dominio.Eventos.Evento");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdDoPedido")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeDoUsuario")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumeroDoCartao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Produto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasDiscriminator().HasValue("PedidoCriadoEvento");
                 });

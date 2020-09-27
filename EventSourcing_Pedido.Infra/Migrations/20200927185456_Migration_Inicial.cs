@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EventSourcing_Pedido.Infra.Migrations
 {
@@ -20,6 +21,25 @@ namespace EventSourcing_Pedido.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartoesDeCreditos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Eventos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Discriminator = table.Column<string>(nullable: false),
+                    NomeDoUsuario = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Data = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Valor = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Produto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumeroDoCartao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdDoPedido = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Eventos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,6 +72,9 @@ namespace EventSourcing_Pedido.Infra.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Eventos");
+
             migrationBuilder.DropTable(
                 name: "Pedidos");
 
