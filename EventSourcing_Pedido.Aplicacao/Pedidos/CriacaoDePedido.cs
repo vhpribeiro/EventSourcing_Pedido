@@ -28,7 +28,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         public async Task Criar(PedidoDto pedidoDto)
         {
             var pedido = MapeadorDePedido.Mapear(pedidoDto);
-            await _pedidoRepositorio.Salvar(pedido);
+            // await _pedidoRepositorio.Salvar(pedido);
 
             await NotificarServicoDePagamento(pedido);
         }
@@ -36,7 +36,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         private async Task NotificarServicoDePagamento(Pedido pedido)
         {
             var eventoDePedidoCriado = new PedidoCriadoEvento(pedido);
-            await _eventoRepositorio.Salvar(eventoDePedidoCriado);
+            // await _eventoRepositorio.Salvar(eventoDePedidoCriado);
 
             var nomeDaQueue = _configuration.GetValue<string>("RabbitQueue");
             var mensagemEmString = JsonConvert.SerializeObject(eventoDePedidoCriado);

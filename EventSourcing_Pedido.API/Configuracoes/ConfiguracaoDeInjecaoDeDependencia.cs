@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventSourcing_Pedido.API.Configuracoes
 {
-    public static class ConfigurarInjecaoDeDependencia
+    public static class ConfiguracaoDeInjecaoDeDependencia
     {
         public static void Configurar(IServiceCollection services, IConfiguration configuration)
         {

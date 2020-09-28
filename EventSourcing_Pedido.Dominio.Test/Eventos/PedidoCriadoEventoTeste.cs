@@ -2,7 +2,6 @@
 using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Test.Helpers._Builders.Dominio;
 using ExpectedObjects;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace EventSourcing_Pedido.Dominio.Test.Eventos
