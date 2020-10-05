@@ -10,16 +10,26 @@ namespace EventSourcing_Pedido.API.Controllers
     public class PedidoController : ControllerBase
     {
         private readonly ICriacaoDePedido _criacaoDePedido;
+        private readonly IAtualizacaoDePedido _atualizacaoDePedido;
 
-        public PedidoController(ICriacaoDePedido criacaoDePedido)
+        public PedidoController(ICriacaoDePedido criacaoDePedido, IAtualizacaoDePedido atualizacaoDePedido)
         {
             _criacaoDePedido = criacaoDePedido;
+            _atualizacaoDePedido = atualizacaoDePedido;
         }
         
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] PedidoDto pedidoDto)
+        public async Task<ActionResult> CriarPedido([FromBody] PedidoDto pedidoDto)
         {
             await _criacaoDePedido.Criar(pedidoDto);
+            return Ok(true);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> AtualizarCartaoDeCredito([FromBody] int idDoPedido,
+            [FromBody] CartaoDeCreditoDto novoCartaoDeCreditoDto)
+        {
+            await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, novoCartaoDeCreditoDto);
             return Ok(true);
         }
     }

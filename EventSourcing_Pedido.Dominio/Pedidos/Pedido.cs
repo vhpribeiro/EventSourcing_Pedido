@@ -36,5 +36,12 @@ namespace EventSourcing_Pedido.Dominio.Pedidos
                 .Obrigando(cartaoDeCredito, "É necessário informar um valor válido")
                 .DispararSeHouverErros();
         }
+
+        public void AtualizarCartaoDeCredito(CartaoDeCredito cartaoDeCredito)
+        {
+            Validacao<Pedido>.EhObrigatorio(cartaoDeCredito, "É necessário informar um cartão de crédito");
+
+            CartaoDeCredito = cartaoDeCredito;
+        }
     }
 }

@@ -72,7 +72,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
         }
         
         [Fact]
-        public async Task Deve_criar_um_evento_de_pedido_criado_ao_criar_pedido()
+        public async Task Deve_salvar_um_evento_de_pedido_criado_ao_criar_pedido()
         {
             var produto = _faker.Random.Word();
             var quantidade = _faker.Random.Int(0);
@@ -115,7 +115,6 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
                 CVV = _faker.Random.Int(100, 999).ToString(),
                 Expiracao = "03/27"
             };
-            var cartaoDeCredito = MapeadorDeCartaoDeCredito.Mapear(cartaoDeCreditoDto);
             var pedidoDto = new PedidoDto
             {
                 Produto = produto,

@@ -14,6 +14,7 @@ namespace EventSourcing_Pedido.API.Configuracoes
         {
             services.AddSingleton(provider => configuration);
             services.AddScoped<ICriacaoDePedido, CriacaoDePedido>();
+            services.AddScoped<IAtualizacaoDePedido, AtualizacaoDePedido>();
             services.AddScoped<IEventoRepositorio, EventoRepositorio>();
             services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
             services.AddScoped<PedidoContext, PedidoContext>();

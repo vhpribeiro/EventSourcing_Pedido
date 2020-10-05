@@ -30,10 +30,10 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             var pedido = MapeadorDePedido.Mapear(pedidoDto);
             await _pedidoRepositorio.Salvar(pedido);
 
-            await NotificarServicoDePagamento(pedido);
+            await NotificarCriacaoDePedidoAoServicoDePagamento(pedido);
         }
 
-        private async Task NotificarServicoDePagamento(Pedido pedido)
+        private async Task NotificarCriacaoDePedidoAoServicoDePagamento(Pedido pedido)
         {
             var eventoDePedidoCriado = new PedidoCriadoEvento(pedido);
             await _eventoRepositorio.Salvar(eventoDePedidoCriado);
