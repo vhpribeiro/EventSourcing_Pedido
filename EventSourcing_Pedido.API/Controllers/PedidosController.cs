@@ -7,12 +7,12 @@ namespace EventSourcing_Pedido.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PedidoController : ControllerBase
+    public class PedidosController : ControllerBase
     {
         private readonly ICriacaoDePedido _criacaoDePedido;
         private readonly IAtualizacaoDePedido _atualizacaoDePedido;
 
-        public PedidoController(ICriacaoDePedido criacaoDePedido, IAtualizacaoDePedido atualizacaoDePedido)
+        public PedidosController(ICriacaoDePedido criacaoDePedido, IAtualizacaoDePedido atualizacaoDePedido)
         {
             _criacaoDePedido = criacaoDePedido;
             _atualizacaoDePedido = atualizacaoDePedido;
@@ -26,7 +26,8 @@ namespace EventSourcing_Pedido.API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> AtualizarCartaoDeCredito([FromBody] int idDoPedido,
+        [Route("{idDoPedido}")]
+        public async Task<ActionResult> AtualizarCartaoDeCredito(int idDoPedido,
             [FromBody] CartaoDeCreditoDto novoCartaoDeCreditoDto)
         {
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, novoCartaoDeCreditoDto);
