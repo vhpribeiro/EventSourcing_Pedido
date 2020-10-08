@@ -4,10 +4,9 @@ using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Aplicacao.Mapeadores;
 using EventSourcing_Pedido.Dominio.CartoesDeCredito;
-using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Dominio.Pedidos;
+using EventSourcingPedidoPagamento.Contratos.Eventos;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace EventSourcing_Pedido.Aplicacao.Pedidos
 {
@@ -15,7 +14,6 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
     {
         private readonly IPedidoRepositorio _pedidoRepositorio;
         private readonly IEventoRepositorio _eventoRepositorio;
-        private readonly IConfiguration _configuration;
         private readonly IBus _mensageria;
 
         public AtualizacaoDePedido(IPedidoRepositorio pedidoRepositorio, IEventoRepositorio eventoRepositorio,
@@ -23,7 +21,6 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         {
             _pedidoRepositorio = pedidoRepositorio;
             _eventoRepositorio = eventoRepositorio;
-            _configuration = configuration;
             _mensageria = mensageria;
         }
 
@@ -42,12 +39,11 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             CartaoDeCredito novoCartaoDeCredito)
         {
             var eventoDeAlteracaoDeCartaoDeCreditoDoPedido = 
-                new AlterouCartaoDeCreditoDoPedidoEvento(pedido, novoCartaoDeCredito);
+                new AlterouCartaoDeCreditoDoPedidoEvento(pedido.Id, novoCartaoDeCredito.Nome,
+                    novoCartaoDeCredito.Numero, pedido.Produto, pedido.Valor);
             await _eventoRepositorio.Salvar(eventoDeAlteracaoDeCartaoDeCreditoDoPedido);
 
-            var nomeDaQueue = _configuration.GetValue<string>("RabbitQueue");
-            var mensagemEmString = JsonConvert.SerializeObject(eventoDeAlteracaoDeCartaoDeCreditoDoPedido);
-            await _mensageria.SendAsync(nomeDaQueue, mensagemEmString);
+            await _mensageria.PublishAsync(eventoDeAlteracaoDeCartaoDeCreditoDoPedido);
         }
     }
 }

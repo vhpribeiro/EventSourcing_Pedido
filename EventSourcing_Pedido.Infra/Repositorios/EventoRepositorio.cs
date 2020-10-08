@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
-using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Infra.Contexts;
+using EventSourcingPedidoPagamento.Contratos.Eventos;
 
 namespace EventSourcing_Pedido.Infra.Repositorios
 {

@@ -1,6 +1,6 @@
 ﻿using EventSourcing_Pedido.Dominio.CartoesDeCredito;
-using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Dominio.Pedidos;
+using EventSourcingPedidoPagamento.Contratos.Eventos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

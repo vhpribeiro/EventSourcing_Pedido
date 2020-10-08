@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using EventSourcing_Pedido.Dominio.Eventos;
+using EventSourcingPedidoPagamento.Contratos.Eventos;
 
 namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
 {

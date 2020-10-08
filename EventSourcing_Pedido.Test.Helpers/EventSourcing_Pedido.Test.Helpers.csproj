@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="8.0.1-beta-1" />
+      <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>

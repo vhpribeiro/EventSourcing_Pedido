@@ -23,5 +23,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.2" />
+    </ItemGroup>
+
 
 </Project>

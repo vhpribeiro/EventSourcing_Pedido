@@ -5,9 +5,9 @@ using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Aplicacao.Mapeadores;
 using EventSourcing_Pedido.Aplicacao.Pedidos;
-using EventSourcing_Pedido.Dominio.Eventos;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcing_Pedido.Test.Helpers._Builders.Dominio;
+using EventSourcingPedidoPagamento.Contratos.Eventos;
 using ExpectedObjects;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -94,7 +94,8 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             };
             var pedidoCriado = PedidoBuilder.Novo().ComProduto(produto).ComQuantidade(quantidade).ComValor(valor)
                 .ComCartaoDeCredito(cartaoDeCredito).Criar();
-            var eventoEsperado = new PedidoCriadoEvento(pedidoCriado);
+            var eventoEsperado = new PedidoCriadoEvento(pedidoCriado.Id, pedidoCriado.CartaoDeCredito.Nome,
+                pedidoCriado.CartaoDeCredito.Numero, pedidoCriado.Produto, pedidoCriado.Valor);
             
             await _criacaoDePedido.Criar(pedidoDto);
             
