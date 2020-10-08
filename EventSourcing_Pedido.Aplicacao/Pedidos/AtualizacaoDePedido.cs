@@ -6,7 +6,6 @@ using EventSourcing_Pedido.Aplicacao.Mapeadores;
 using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
-using Microsoft.Extensions.Configuration;
 
 namespace EventSourcing_Pedido.Aplicacao.Pedidos
 {
@@ -17,7 +16,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         private readonly IBus _mensageria;
 
         public AtualizacaoDePedido(IPedidoRepositorio pedidoRepositorio, IEventoRepositorio eventoRepositorio,
-            IBus mensageria, IConfiguration configuration)
+            IBus mensageria)
         {
             _pedidoRepositorio = pedidoRepositorio;
             _eventoRepositorio = eventoRepositorio;

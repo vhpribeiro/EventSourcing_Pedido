@@ -1,5 +1,6 @@
 ﻿using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 using EventSourcing_Pedido.Dominio.Pedidos;
+using EventSourcing_Pedido.Infra.Contexts.Configuracoes;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,54 +31,10 @@ namespace EventSourcing_Pedido.Infra.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ConfigurarPedidoCriadoEvento(modelBuilder);
-            ConfigurarAlterouCartaoDeCreditoDoPedidoEvento(modelBuilder);
+            modelBuilder = ConfiguracaoPedidoCriadoEvento.Configuruar(modelBuilder);
+            modelBuilder = ConfiguracaoAlteracaoCartaoDeCreditoDoPedidoEvento.Configuruar(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        private static void ConfigurarPedidoCriadoEvento(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.Data)
-                .HasColumnType("datetime2");
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.IdDoPedido)
-                .HasColumnType("int");
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.NomeDoUsuario)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.NumeroDoCartao)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.Produto)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<PedidoCriadoEvento>()
-                .Property(e => e.Valor)
-                .HasColumnType("decimal(18,2)");
-        }
-        
-        private static void ConfigurarAlterouCartaoDeCreditoDoPedidoEvento(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.Data)
-                .HasColumnType("datetime2");
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.IdDoPedido)
-                .HasColumnType("int");
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.NomeDoUsuario)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.NumeroDoCartao)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.Produto)
-                .HasColumnType("nvarchar(max)");
-            modelBuilder.Entity<AlterouCartaoDeCreditoDoPedidoEvento>()
-                .Property(e => e.Valor)
-                .HasColumnType("decimal(18,2)");
         }
     }
 }

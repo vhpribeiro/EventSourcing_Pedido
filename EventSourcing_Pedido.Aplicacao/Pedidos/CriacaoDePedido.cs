@@ -15,7 +15,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         private readonly IEventoRepositorio _eventoRepositorio;
         private readonly IBus _mensageria;
 
-        public CriacaoDePedido(IPedidoRepositorio pedidoRepositorio, IEventoRepositorio eventoRepositorio, IBus mensageria, IConfiguration configuration)
+        public CriacaoDePedido(IPedidoRepositorio pedidoRepositorio, IEventoRepositorio eventoRepositorio, IBus mensageria)
         {
             _pedidoRepositorio = pedidoRepositorio;
             _eventoRepositorio = eventoRepositorio;

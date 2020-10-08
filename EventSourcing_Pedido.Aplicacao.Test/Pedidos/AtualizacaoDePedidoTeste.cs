@@ -18,24 +18,17 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
         private readonly Faker _faker;
         private readonly Mock<IPedidoRepositorio> _pedidoRepositorio;
         private readonly Mock<IEventoRepositorio> _eventoRepositorio;
-        private readonly Mock<IConfiguration> _configuration;
         private readonly Mock<IBus> _mensageria;
         private readonly AtualizacaoDePedido _atualizacaoDePedido;
-        private const string _nomeDaQueue = "PedidoPagamento";
 
         public AtualizacaoDePedidoTeste()
         {
             _faker = new Faker();
             _pedidoRepositorio = new Mock<IPedidoRepositorio>();
             _eventoRepositorio = new Mock<IEventoRepositorio>();
-            _configuration = new Mock<IConfiguration>();
             _mensageria = new Mock<IBus>();
-            _atualizacaoDePedido = new AtualizacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object,
-                _mensageria.Object, _configuration.Object);
+            _atualizacaoDePedido = new AtualizacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
             _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<AlterouCartaoDeCreditoDoPedidoEvento>()));
-            var configurationSection = new Mock<IConfigurationSection>();
-            configurationSection.Setup(cs => cs.Value).Returns(_nomeDaQueue);
-            _configuration.Setup(c => c.GetSection(It.IsAny<string>())).Returns(configurationSection.Object);
         }
         
         [Fact]

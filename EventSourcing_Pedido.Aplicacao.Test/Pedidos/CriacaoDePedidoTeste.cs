@@ -23,22 +23,17 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
         private readonly CriacaoDePedido _criacaoDePedido;
         private readonly Mock<IEventoRepositorio> _eventoRepositorio;
         private readonly Mock<IBus> _mensageria;
-        private Mock<IConfiguration> _configuration;
-        private const string _nomeDaQueue = "PedidoPagamento";
 
         public CriacaoDePedidoTeste()
         {
             _faker = new Faker();
             _pedidoRepositorio = new Mock<IPedidoRepositorio>();
             _eventoRepositorio = new Mock<IEventoRepositorio>();
-            _configuration = new Mock<IConfiguration>();
             _mensageria = new Mock<IBus>();
-            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object, _configuration.Object);
+            _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
             _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
             _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
             var configurationSection = new Mock<IConfigurationSection>();
-            configurationSection.Setup(cs => cs.Value).Returns(_nomeDaQueue);
-            _configuration.Setup(c => c.GetSection(It.IsAny<string>())).Returns(configurationSection.Object);
         }
         
         [Fact]
