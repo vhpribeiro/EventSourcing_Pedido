@@ -109,11 +109,12 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             var pedido = PedidoBuilder.Novo().Criar();
             _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
             _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
-
             
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, cartaoDeCreditoDto);
             
-            _mensageria.Verify(m => m.SendAsync(_nomeDaQueue, It.IsAny<string>()));
+            _mensageria.Verify(m => m.PublishAsync(
+                It.Is<AlterouCartaoDeCreditoDoPedidoEvento>(a
+                    => a.IdDoPedido == pedido.Id && a.NomeDoUsuario == nomeDoDonoDoCartao && a.NumeroDoCartao == numeroDoNovoCartaoDeCredito)));
         }
     }
 }

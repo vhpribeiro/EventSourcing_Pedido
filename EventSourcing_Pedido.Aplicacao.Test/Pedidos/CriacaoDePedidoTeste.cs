@@ -126,7 +126,9 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
 
             await _criacaoDePedido.Criar(pedidoDto);
 
-            _mensageria.Verify(m => m.SendAsync(_nomeDaQueue, It.IsAny<string>()));
+            _mensageria.Verify(m => m.PublishAsync(
+                It.Is<PedidoCriadoEvento>(p 
+                    => p.Produto == produto && p.Valor == valor && p.NomeDoUsuario == cartaoDeCreditoDto.Nome)));
         }
     }
 }
