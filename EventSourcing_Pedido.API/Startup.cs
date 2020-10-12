@@ -22,6 +22,7 @@ namespace EventSourcing_Pedido.API
             services.AddControllers();
             services.AddDbContext<PedidoContext>();
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
+            ConfiguracaoDoSwagger.Configurar(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,10 +33,10 @@ namespace EventSourcing_Pedido.API
             }
 
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseSwagger();  
+            app.UseSwaggerUI(options =>options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pedido - Pagamento v1"));  
         }
     }
 }
