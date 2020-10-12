@@ -33,7 +33,6 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
             _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
             _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
-            var configurationSection = new Mock<IConfigurationSection>();
         }
         
         [Fact]

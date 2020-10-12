@@ -33,7 +33,8 @@ namespace EventSourcing_Pedido.Dominio.Test.Pedidos
                 Produto = _produto,
                 Quantidade = _quantidade,
                 Valor = _valor,
-                CartaoDeCredito = _cartaoDeCredito
+                CartaoDeCredito = _cartaoDeCredito,
+                Situacao = SituacaoDoPedido.PedidoCriado
             };
             
             var pedidoObtido = new Pedido(_produto, _quantidade, _valor, _cartaoDeCredito);
@@ -85,6 +86,26 @@ namespace EventSourcing_Pedido.Dominio.Test.Pedidos
             void Acao() => new Pedido(_produto, _quantidade, _valor, cartaoDeCreditoInvalido);
             
             Assert.Throws<ExcecaoDeDominio<Pedido>>(Acao).PossuiErroComAMensagemIgualA(mensagemDeErroEsperada);
+        }
+
+        [Fact]
+        public void Deve_aprovar_pagamento_do_pedido()
+        {
+            var pedido = PedidoBuilder.Novo().Criar();
+            
+            pedido.AprovarPagamento();
+            
+            Assert.Equal(SituacaoDoPedido.PagamentoAprovado, pedido.Situacao);
+        }
+
+        [Fact]
+        public void Deve_negar_pagamento_do_pedido()
+        {
+            var pedido = PedidoBuilder.Novo().Criar();
+            
+            pedido.NegarPagamento();
+            
+            Assert.Equal(SituacaoDoPedido.PagamentoNegado, pedido.Situacao);
         }
     }
 }

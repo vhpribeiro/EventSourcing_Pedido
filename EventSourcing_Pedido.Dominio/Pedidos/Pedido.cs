@@ -12,6 +12,7 @@ namespace EventSourcing_Pedido.Dominio.Pedidos
         public string Produto { get; set; }
         public int Quantidade { get; set; }
         public decimal Valor { get; set; }
+        public SituacaoDoPedido Situacao { get; set; }
         public int CartaoDeCreditoId { get; set; }
         public CartaoDeCredito CartaoDeCredito { get; set; }
 
@@ -25,6 +26,7 @@ namespace EventSourcing_Pedido.Dominio.Pedidos
             Quantidade = quantidade;
             Valor = valor;
             CartaoDeCredito = cartaoDeCredito;
+            Situacao = SituacaoDoPedido.PedidoCriado;
         }
 
         private void ValidarInformacoes(string produto, int quantidade, decimal valor, CartaoDeCredito cartaoDeCredito)
@@ -43,5 +45,9 @@ namespace EventSourcing_Pedido.Dominio.Pedidos
 
             CartaoDeCredito = cartaoDeCredito;
         }
+
+        public void AprovarPagamento() => Situacao = SituacaoDoPedido.PagamentoAprovado;
+
+        public void NegarPagamento() => Situacao = SituacaoDoPedido.PagamentoNegado;
     }
 }
