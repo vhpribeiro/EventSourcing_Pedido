@@ -4,14 +4,16 @@ using EventSourcing_Pedido.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventSourcing_Pedido.Infra.Migrations
 {
     [DbContext(typeof(PedidoContext))]
-    partial class PedidoContextModelSnapshot : ModelSnapshot
+    [Migration("20201012120859_Criando_Situacao_Do_Pedido")]
+    partial class Criando_Situacao_Do_Pedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
