@@ -1,3 +1,4 @@
+using EventSourcing_Pedido.API.BackgroundServices;
 using EventSourcing_Pedido.API.Configuracoes;
 using EventSourcing_Pedido.Infra.Contexts;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +24,7 @@ namespace EventSourcing_Pedido.API
             services.AddDbContext<PedidoContext>();
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
             ConfiguracaoDoSwagger.Configurar(services);
+            services.AddHostedService<RabbitMqSubscriber>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

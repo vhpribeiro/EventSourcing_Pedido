@@ -12,12 +12,10 @@ namespace EventSourcing_Pedido.API.Configuracoes
     {
         public static void Configurar(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton(provider => configuration);
-            services.AddScoped<ICriacaoDePedido, CriacaoDePedido>();
-            services.AddScoped<IAtualizacaoDePedido, AtualizacaoDePedido>();
-            services.AddScoped<IEventoRepositorio, EventoRepositorio>();
-            services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
-            services.AddScoped<PedidoContext, PedidoContext>();
+            services.AddSingleton<ICriacaoDePedido, CriacaoDePedido>();
+            services.AddSingleton<IAtualizacaoDePedido, AtualizacaoDePedido>();
+            services.AddSingleton<IEventoRepositorio, EventoRepositorio>();
+            services.AddSingleton<IPedidoRepositorio, PedidoRepositorio>();
             services.AddTransient<IBus>(x => RabbitHutch.CreateBus(configuration.GetValue<string>("RabbitConnection")));
         }    
     }
