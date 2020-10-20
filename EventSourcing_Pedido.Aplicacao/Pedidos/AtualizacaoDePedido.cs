@@ -29,9 +29,25 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             var pedido = _pedidoRepositorio.ObterPedidoPeloId(idDoPedido);
             
             pedido.AtualizarCartaoDeCredito(novoCartaoDeCredito);
-            _pedidoRepositorio.AtualizarPedido(pedido);
+            await _pedidoRepositorio.AtualizarPedido(pedido);
 
             await NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(pedido, novoCartaoDeCredito);
+        }
+
+        public async Task AprovarPagamento(int idDoPedido)
+        {
+            var pedido = _pedidoRepositorio.ObterPedidoPeloId(idDoPedido);
+            
+            pedido.AprovarPagamento();
+            await _pedidoRepositorio.AtualizarPedido(pedido);
+        }
+
+        public async Task NegarPagamento(int idDoPedido)
+        {
+            var pedido = _pedidoRepositorio.ObterPedidoPeloId(idDoPedido);
+            
+            pedido.NegarPagamento();
+            await _pedidoRepositorio.AtualizarPedido(pedido);
         }
 
         private async Task NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(Pedido pedido,

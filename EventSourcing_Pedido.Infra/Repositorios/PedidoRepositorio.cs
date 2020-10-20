@@ -3,30 +3,49 @@ using System.Threading.Tasks;
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcing_Pedido.Infra.Contexts;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EventSourcing_Pedido.Infra.Repositorios
 {
     public class PedidoRepositorio : IPedidoRepositorio
     {
-        private readonly PedidoContext _context;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public PedidoRepositorio(PedidoContext context)
+        public PedidoRepositorio(IServiceScopeFactory scopeFactory)
         {
-            _context = context;
+            _scopeFactory = scopeFactory;
         }
         
         public async Task Salvar(Pedido pedido)
         {
-            await _context.Pedidos.AddAsync(pedido);
-            await _context.SaveChangesAsync();
+            using (var escopo = _scopeFactory.CreateScope())
+            {
+                var servicosEscopo = escopo.ServiceProvider;
+                var contexto = servicosEscopo.GetRequiredService<PedidoContext>();
+                await contexto.Pedidos.AddAsync(pedido);
+                await contexto.SaveChangesAsync();
+            }
         }
 
-        public Pedido ObterPedidoPeloId(int idDoPedido) 
-            => _context.Pedidos.First(p => p.Id == idDoPedido);
-
-        public void AtualizarPedido(Pedido pedido)
+        public Pedido ObterPedidoPeloId(int idDoPedido)
         {
-            _context.Pedidos.Update(pedido);
+            using (var escopo = _scopeFactory.CreateScope())
+            {
+                var servicosEscopo = escopo.ServiceProvider;
+                var contexto = servicosEscopo.GetRequiredService<PedidoContext>();
+                return contexto.Pedidos.First(p => p.Id == idDoPedido);
+            }
+        }
+
+        public async Task AtualizarPedido(Pedido pedido)
+        {
+            using (var escopo = _scopeFactory.CreateScope())
+            {
+                var servicosEscopo = escopo.ServiceProvider;
+                var contexto = servicosEscopo.GetRequiredService<PedidoContext>();
+                contexto.Pedidos.Update(pedido);
+                await contexto.SaveChangesAsync();
+            }
         }
     }
 }

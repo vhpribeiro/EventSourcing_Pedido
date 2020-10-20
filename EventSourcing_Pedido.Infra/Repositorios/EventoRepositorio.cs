@@ -2,22 +2,28 @@
 using EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio;
 using EventSourcing_Pedido.Infra.Contexts;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EventSourcing_Pedido.Infra.Repositorios
 {
     public class EventoRepositorio : IEventoRepositorio
     {
-        private readonly PedidoContext _context;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public EventoRepositorio(PedidoContext context)
+        public EventoRepositorio(IServiceScopeFactory scopeFactory)
         {
-            _context = context;
+            _scopeFactory = scopeFactory;
         }
 
         public async Task Salvar(Evento evento)
         {
-            await _context.Eventos.AddAsync(evento);
-            await _context.SaveChangesAsync();
+            using (var escopo = _scopeFactory.CreateScope())
+            {
+                var servicosEscopo = escopo.ServiceProvider;
+                var contexto = servicosEscopo.GetRequiredService<PedidoContext>();
+                await contexto.Eventos.AddAsync(evento);
+                await contexto.SaveChangesAsync();
+            }
         }
     }
 }
