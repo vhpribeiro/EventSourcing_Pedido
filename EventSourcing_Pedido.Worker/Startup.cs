@@ -1,12 +1,13 @@
 using EventSourcing_Pedido.API.Configuracoes;
 using EventSourcing_Pedido.Infra.Contexts;
+using EventSourcing_Pedido.Worker.BackgroundServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace EventSourcing_Pedido.API
+namespace EventSourcing_Pedido.Worker
 {
     public class Startup
     {
@@ -22,7 +23,8 @@ namespace EventSourcing_Pedido.API
             services.AddControllers();
             services.AddDbContext<PedidoContext>();
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
-            ConfiguracaoDoSwagger.Configurar(services);
+            services.AddHostedService<RabbitMqSubscriber>();
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,11 +34,10 @@ namespace EventSourcing_Pedido.API
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-            app.UseSwagger();  
-            app.UseSwaggerUI(options =>options.SwaggerEndpoint("/swagger/v1/swagger.json", "Pedido - Pagamento v1"));  
         }
     }
 }

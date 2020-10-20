@@ -37,13 +37,14 @@ namespace EventSourcing_Pedido.Infra.Repositorios
             }
         }
 
-        public void AtualizarPedido(Pedido pedido)
+        public async Task AtualizarPedido(Pedido pedido)
         {
             using (var escopo = _scopeFactory.CreateScope())
             {
                 var servicosEscopo = escopo.ServiceProvider;
                 var contexto = servicosEscopo.GetRequiredService<PedidoContext>();
                 contexto.Pedidos.Update(pedido);
+                await contexto.SaveChangesAsync();
             }
         }
     }

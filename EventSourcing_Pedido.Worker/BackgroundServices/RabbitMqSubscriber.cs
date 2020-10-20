@@ -5,7 +5,7 @@ using EventSourcing_Pedido.Aplicacao.Pedidos;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
 using Microsoft.Extensions.Hosting;
 
-namespace EventSourcing_Pedido.API.BackgroundServices
+namespace EventSourcing_Pedido.Worker.BackgroundServices
 {
     public class RabbitMqSubscriber : BackgroundService
     {
