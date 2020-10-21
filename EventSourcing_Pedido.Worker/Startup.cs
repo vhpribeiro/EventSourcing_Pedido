@@ -20,6 +20,7 @@ namespace EventSourcing_Pedido.Worker
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //TODO criar uma configuracao própria de injeção de dependência para esse worker
             services.AddControllers();
             services.AddDbContext<PedidoContext>();
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);

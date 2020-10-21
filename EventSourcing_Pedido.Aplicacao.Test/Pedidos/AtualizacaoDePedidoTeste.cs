@@ -109,5 +109,33 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
                 It.Is<AlterouCartaoDeCreditoDoPedidoEvento>(a
                     => a.IdDoPedido == pedido.Id && a.NomeDoUsuario == nomeDoDonoDoCartao && a.NumeroDoCartao == numeroDoNovoCartaoDeCredito)));
         }
+
+        [Fact]
+        public async Task Deve_aprovar_pagamento()
+        {
+            var idDoPedido = _faker.Random.Int(0);
+            var pedido = PedidoBuilder.Novo().Criar();
+            _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
+            _pedidoRepositorio.Setup(pr => pr.AtualizarPedido(It.IsAny<Pedido>()));
+            
+            await _atualizacaoDePedido.AprovarPagamento(idDoPedido);
+            
+            _pedidoRepositorio.Verify(pr => pr.AtualizarPedido(It.Is<Pedido>(
+                p => p.Id == pedido.Id && p.Situacao == SituacaoDoPedido.PagamentoAprovado)));
+        }
+        
+        [Fact]
+        public async Task Deve_negar_pagamento()
+        {
+            var idDoPedido = _faker.Random.Int(0);
+            var pedido = PedidoBuilder.Novo().Criar();
+            _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
+            _pedidoRepositorio.Setup(pr => pr.AtualizarPedido(It.IsAny<Pedido>()));
+            
+            await _atualizacaoDePedido.NegarPagamento(idDoPedido);
+            
+            _pedidoRepositorio.Verify(pr => pr.AtualizarPedido(It.Is<Pedido>(
+                p => p.Id == pedido.Id && p.Situacao == SituacaoDoPedido.PagamentoNegado)));
+        }
     }
 }
