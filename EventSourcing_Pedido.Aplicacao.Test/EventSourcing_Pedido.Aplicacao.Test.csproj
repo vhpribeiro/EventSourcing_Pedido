@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Bogus" Version="8.0.1-beta-1" />
-        <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.2" />
+        <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.3" />
         <PackageReference Include="ExpectedObjects" Version="2.3.5" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
         <PackageReference Include="Moq" Version="4.14.5" />

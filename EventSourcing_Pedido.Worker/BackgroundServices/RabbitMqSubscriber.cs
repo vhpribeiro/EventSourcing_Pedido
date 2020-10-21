@@ -24,11 +24,11 @@ namespace EventSourcing_Pedido.Worker.BackgroundServices
             {
                 _mensageria.Subscribe<PagamentoAprovadoEvento>("pagamentoAprovado", pagamentoAprovadoEvento =>
                 {
-                    _atualizacaoDePedido.AprovarPagamento(pagamentoAprovadoEvento.IdDoPedido);
+                    _atualizacaoDePedido.AprovarPagamento(pagamentoAprovadoEvento);
                 });
                 _mensageria.Subscribe<PagamentoRecusadoEvento>("pagamentoRecusado", pagamentoRecusadoEvento =>
                 {
-                    _atualizacaoDePedido.NegarPagamento(pagamentoRecusadoEvento.IdDoPedido);
+                    _atualizacaoDePedido.NegarPagamento(pagamentoRecusadoEvento);
                 });
             }
         }

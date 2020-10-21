@@ -34,20 +34,22 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             await NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(pedido, novoCartaoDeCredito);
         }
 
-        public async Task AprovarPagamento(int idDoPedido)
+        public async Task AprovarPagamento(PagamentoAprovadoEvento pagamentoAprovadoEvento)
         {
-            var pedido = _pedidoRepositorio.ObterPedidoPeloId(idDoPedido);
+            var pedido = _pedidoRepositorio.ObterPedidoPeloId(pagamentoAprovadoEvento.IdDoPedido);
             
             pedido.AprovarPagamento();
             await _pedidoRepositorio.AtualizarPedido(pedido);
+            await _eventoRepositorio.Salvar(pagamentoAprovadoEvento);
         }
 
-        public async Task NegarPagamento(int idDoPedido)
+        public async Task NegarPagamento(PagamentoRecusadoEvento pagamentoRecusadoEvento)
         {
-            var pedido = _pedidoRepositorio.ObterPedidoPeloId(idDoPedido);
+            var pedido = _pedidoRepositorio.ObterPedidoPeloId(pagamentoRecusadoEvento.IdDoPedido);
             
             pedido.NegarPagamento();
             await _pedidoRepositorio.AtualizarPedido(pedido);
+            await _eventoRepositorio.Salvar(pagamentoRecusadoEvento);
         }
 
         private async Task NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(Pedido pedido,
