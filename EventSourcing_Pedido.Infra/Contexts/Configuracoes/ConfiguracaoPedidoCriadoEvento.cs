@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventSourcing_Pedido.Infra.Contexts.Configuracoes
 {
-    public static class ConfiguracaoPedidoCriadoEvento 
+    public class ConfiguracaoPedidoCriadoEvento : IConfiguracaoDeEvento
     {
-        public static ModelBuilder Configuruar(ModelBuilder modelBuilder)
+        public ModelBuilder Configurar(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PedidoCriadoEvento>()
                 .Property(e => e.Data)

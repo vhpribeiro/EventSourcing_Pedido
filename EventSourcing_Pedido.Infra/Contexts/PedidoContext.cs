@@ -1,4 +1,5 @@
-﻿using EventSourcing_Pedido.Dominio.CartoesDeCredito;
+﻿using System.Collections.Generic;
+using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcing_Pedido.Infra.Contexts.Configuracoes;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
@@ -9,13 +10,13 @@ namespace EventSourcing_Pedido.Infra.Contexts
 {
     public class PedidoContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+        private readonly IEnumerable<IConfiguracaoDeEvento> _configuradoresDeEventos;
         public PedidoContext() { }
         
-        public PedidoContext(DbContextOptions<PedidoContext> opcoes, IConfiguration configuration)
+        public PedidoContext(DbContextOptions<PedidoContext> opcoes, IEnumerable<IConfiguracaoDeEvento> configuradoresDeEventos)
         : base(opcoes)
         {
-            _configuration = configuration;
+            _configuradoresDeEventos = configuradoresDeEventos;
         }
         
         public DbSet<Pedido> Pedidos { get; set; }
@@ -24,10 +25,8 @@ namespace EventSourcing_Pedido.Infra.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder = ConfiguracaoPedidoCriadoEvento.Configuruar(modelBuilder);
-            modelBuilder = ConfiguracaoAlteracaoCartaoDeCreditoDoPedidoEvento.Configuruar(modelBuilder);
-            modelBuilder = ConfiguracaoPagamentoAprovadoEvento.Configuruar(modelBuilder);
-            modelBuilder = ConfiguracaoPagamentoRecusadoEvento.Configuruar(modelBuilder);
+            foreach (var configurador in _configuradoresDeEventos)
+                modelBuilder = configurador.Configurar(modelBuilder);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventSourcing_Pedido.Infra.Contexts.Configuracoes
 {
-    public class ConfiguracaoPagamentoRecusadoEvento
+    public class ConfiguracaoPagamentoRecusadoEvento : IConfiguracaoDeEvento
     {
-        public static ModelBuilder Configuruar(ModelBuilder modelBuilder)
+        public ModelBuilder Configurar(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<PagamentoRecusadoEvento>()
                 .Property(e => e.Data)
