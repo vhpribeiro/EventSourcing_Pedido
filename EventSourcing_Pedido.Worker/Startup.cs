@@ -3,6 +3,7 @@ using EventSourcing_Pedido.Infra.Contexts;
 using EventSourcing_Pedido.Worker.BackgroundServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +23,9 @@ namespace EventSourcing_Pedido.Worker
         {
             //TODO criar uma configuracao própria de injeção de dependência para esse worker
             services.AddControllers();
-            services.AddDbContext<PedidoContext>();
+            services.AddDbContext<PedidoContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("EventSourcing_Pedido.Infra")));
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
             services.AddHostedService<RabbitMqSubscriber>();
             services.AddControllers();

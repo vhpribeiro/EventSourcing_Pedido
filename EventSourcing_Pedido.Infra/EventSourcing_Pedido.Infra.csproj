@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.2" />
+        <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="3.1.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />

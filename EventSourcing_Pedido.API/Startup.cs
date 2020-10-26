@@ -2,6 +2,7 @@ using EventSourcing_Pedido.API.Configuracoes;
 using EventSourcing_Pedido.Infra.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +21,9 @@ namespace EventSourcing_Pedido.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<PedidoContext>();
+            services.AddDbContext<PedidoContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),
+                    b => b.MigrationsAssembly("EventSourcing_Pedido.Infra")));
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
             ConfiguracaoDoSwagger.Configurar(services);
         }
