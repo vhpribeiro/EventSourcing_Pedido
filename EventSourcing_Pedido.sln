@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.Infra"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.Worker", "EventSourcing_Pedido.Worker\EventSourcing_Pedido.Worker.csproj", "{0BA5C75B-9A63-4482-B1DF-ABEB9D4C0A3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSourcing_Pedido.BDD.Test", "EventSourcing_Pedido.BDD.Test\EventSourcing_Pedido.BDD.Test.csproj", "{83CBC83C-38AD-4C71-A242-F4BA28B24CCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,7 @@ Global
 		{5D8EC9CE-D038-4F24-838F-AC7B3B5CADA7} = {C0A1441F-C2C5-4FDA-81BF-4A6695C1BFCD}
 		{C75A9C19-FD9A-4C47-92FC-AB33159E1A2A} = {C0A1441F-C2C5-4FDA-81BF-4A6695C1BFCD}
 		{0BA5C75B-9A63-4482-B1DF-ABEB9D4C0A3B} = {C0A1441F-C2C5-4FDA-81BF-4A6695C1BFCD}
+		{83CBC83C-38AD-4C71-A242-F4BA28B24CCA} = {43234A46-2BD1-41A6-BCF4-3E96A93D3D32}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{191E47BE-8911-4213-BECF-2211D5C4ECA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +71,9 @@ Global
 		{0BA5C75B-9A63-4482-B1DF-ABEB9D4C0A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BA5C75B-9A63-4482-B1DF-ABEB9D4C0A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BA5C75B-9A63-4482-B1DF-ABEB9D4C0A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83CBC83C-38AD-4C71-A242-F4BA28B24CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CBC83C-38AD-4C71-A242-F4BA28B24CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CBC83C-38AD-4C71-A242-F4BA28B24CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CBC83C-38AD-4C71-A242-F4BA28B24CCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
