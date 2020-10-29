@@ -6,22 +6,21 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
-    <Target Name="AfterUpdateFeatureFilesInProject">
-        <!-- include any generated SpecFlow files in the compilation of the project if not included yet -->
-        <ItemGroup>
-            <Compile Include="**\*.feature.cs" Exclude="@(Compile)" />
-        </ItemGroup>
-    </Target>
-
     <ItemGroup>
-        <PackageReference Include="Bogus" Version="8.0.1-beta-1" />
-        <PackageReference Include="EventSourcingPedidoPagamento.Contratos" Version="1.0.3" />
-        <PackageReference Include="ExpectedObjects" Version="2.3.5" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
         <PackageReference Include="Moq" Version="4.14.5" />
+        <PackageReference Include="SpecFlow" Version="3.4.32-beta" />
+        <PackageReference Include="SpecFlow.xUnit" Version="3.4.32-beta" />
         <PackageReference Include="xunit" Version="2.4.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
         <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <SpecFlowFeatureFiles Update="AtualizarCartaoDeCredito.feature">
+        <CodeBehindFile>%(RelativeDir)%(Filename).feature.cs</CodeBehindFile>
+        <Visible>true</Visible>
+      </SpecFlowFeatureFiles>
     </ItemGroup>
 
     <ItemGroup>
