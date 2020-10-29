@@ -4,7 +4,6 @@ using EventSourcing_Pedido.Dominio.Pedidos;
 using EventSourcing_Pedido.Infra.Contexts.Configuracoes;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace EventSourcing_Pedido.Infra.Contexts
 {
