@@ -11,7 +11,7 @@ using Xunit;
 namespace EventSourcing_Pedido.BDD.Test
 {
     //Esse método já foi coberto de teste no projeto "EventSourcing_Pedido.Aplicacao.Test"
-    //Esse teste foi realizado apenas como método de estuda da lib Specflow e da metodologia BDD
+    //Esse teste foi realizado apenas como método de estudo da lib Specflow e da metodologia BDD
     [Binding]
     public class AtualizarCartaoDeCreditoStepDefinition
     {
