@@ -4,7 +4,7 @@ using EventSourcing_Pedido.Infra.Contexts;
 
 namespace EventSourcing_Pedido.Infra.Repositorios
 {
-    public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : Entidade
+    public class RepositorioBase<TEntidade> : IRepositorioBase<TEntidade> where TEntidade : Entidade
     {
         protected PedidoContext _pedidoContext;
 

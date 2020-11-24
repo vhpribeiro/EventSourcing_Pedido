@@ -31,7 +31,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
             pedido.AtualizarCartaoDeCredito(novoCartaoDeCredito);
             await _pedidoRepositorio.AtualizarPedido(pedido);
 
-            // await NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(pedido, novoCartaoDeCredito);
+            await NotificarAlteracaoDeCartaoDeCreditoAoServicoDePagamento(pedido, novoCartaoDeCredito);
         }
 
         public async Task AprovarPagamento(PagamentoAprovadoEvento pagamentoAprovadoEvento)

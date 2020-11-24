@@ -16,14 +16,14 @@ namespace EventSourcing_Pedido.API.Configuracoes
         {
             services.AddScoped<ICriacaoDePedido, CriacaoDePedido>();
             services.AddScoped<IAtualizacaoDePedido, AtualizacaoDePedido>();
-            services.AddSingleton<IEventoRepositorio, EventoRepositorio>();
+            services.AddScoped<IEventoRepositorio, EventoRepositorio>();
             services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
-            services.AddSingleton<IConfiguracaoDeEvento, ConfiguracaoPedidoCriadoEvento>();
-            services.AddSingleton<IConfiguracaoDeEvento, ConfiguracaoAlteracaoCartaoDeCreditoDoPedidoEvento>();
-            services.AddSingleton<IConfiguracaoDeEvento, ConfiguracaoPagamentoAprovadoEvento>();
-            services.AddSingleton<IConfiguracaoDeEvento, ConfiguracaoPagamentoRecusadoEvento>();
+            services.AddScoped<IConfiguracaoDeEvento, ConfiguracaoPedidoCriadoEvento>();
+            services.AddScoped<IConfiguracaoDeEvento, ConfiguracaoAlteracaoCartaoDeCreditoDoPedidoEvento>();
+            services.AddScoped<IConfiguracaoDeEvento, ConfiguracaoPagamentoAprovadoEvento>();
+            services.AddScoped<IConfiguracaoDeEvento, ConfiguracaoPagamentoRecusadoEvento>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IBus>(x => RabbitHutch.CreateBus(configuration.GetValue<string>("RabbitConnection")));
+            services.AddScoped<IBus>(x => RabbitHutch.CreateBus(configuration.GetValue<string>("RabbitConnection")));
         }    
     }
 }

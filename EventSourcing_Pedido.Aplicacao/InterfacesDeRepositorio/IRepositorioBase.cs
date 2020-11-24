@@ -1,6 +1,6 @@
 ﻿namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
 {
-    public interface IRepositorio<TEntidade>
+    public interface IRepositorioBase<TEntidade>
     {
         void Adicionar(TEntidade entity);
     }

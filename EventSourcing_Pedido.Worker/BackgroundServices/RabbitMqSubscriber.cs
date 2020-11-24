@@ -3,40 +3,48 @@ using System.Threading.Tasks;
 using EasyNetQ;
 using EventSourcing_Pedido.Aplicacao.Pedidos;
 using EventSourcingPedidoPagamento.Contratos.Eventos;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace EventSourcing_Pedido.Worker.BackgroundServices
 {
     public class RabbitMqSubscriber : BackgroundService
     {
-        private readonly IBus _mensageria;
-        private readonly IAtualizacaoDePedido _atualizacaoDePedido;
+        private readonly IServiceScopeFactory _scopeFactory;
 
-        public RabbitMqSubscriber(IBus mensageria, IAtualizacaoDePedido atualizacaoDePedido)
+        public RabbitMqSubscriber(IServiceScopeFactory scopeFactory)
         {
-            _mensageria = mensageria;
-            _atualizacaoDePedido = atualizacaoDePedido;
+            _scopeFactory = scopeFactory;
         }
         
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            using (var escopo = _scopeFactory.CreateScope())
             {
-                _mensageria.Subscribe<PagamentoAprovadoEvento>("pagamentoAprovado", pagamentoAprovadoEvento =>
+                var mensageria = escopo.ServiceProvider.GetService<IBus>();
+                var atualizacaoDePedido = escopo.ServiceProvider.GetService<IAtualizacaoDePedido>();
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    _atualizacaoDePedido.AprovarPagamento(pagamentoAprovadoEvento);
-                });
-                _mensageria.Subscribe<PagamentoRecusadoEvento>("pagamentoRecusado", pagamentoRecusadoEvento =>
-                {
-                    _atualizacaoDePedido.NegarPagamento(pagamentoRecusadoEvento);
-                });
+                    mensageria.Subscribe<PagamentoAprovadoEvento>("pagamentoAprovado", pagamentoAprovadoEvento =>
+                    {
+                        atualizacaoDePedido.AprovarPagamento(pagamentoAprovadoEvento);
+                    });
+                    mensageria.Subscribe<PagamentoRecusadoEvento>("pagamentoRecusado", pagamentoRecusadoEvento =>
+                    {
+                        atualizacaoDePedido.NegarPagamento(pagamentoRecusadoEvento);
+                    });
+                }
             }
         }
 
         public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _mensageria.Dispose();
-            return base.StopAsync(cancellationToken);
+            using (var escopo = _scopeFactory.CreateScope())
+            {
+                var mensageria = escopo.ServiceProvider.GetService<IBus>();
+                mensageria.Dispose();
+                return base.StopAsync(cancellationToken);
+            }
         }
     }
 }
