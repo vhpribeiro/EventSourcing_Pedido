@@ -31,7 +31,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             _eventoRepositorio = new Mock<IEventoRepositorio>();
             _mensageria = new Mock<IBus>();
             _criacaoDePedido = new CriacaoDePedido(_pedidoRepositorio.Object, _eventoRepositorio.Object, _mensageria.Object);
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            _pedidoRepositorio.Setup(pr => pr.Adicionar(It.IsAny<Pedido>()));
             _eventoRepositorio.Setup(er => er.Salvar(It.IsAny<PedidoCriadoEvento>()));
         }
         
@@ -61,7 +61,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             
             await _criacaoDePedido.Criar(pedidoDto);
             
-            _pedidoRepositorio.Verify(pr => pr.Salvar(It.Is<Pedido>(pedido 
+            _pedidoRepositorio.Verify(pr => pr.Adicionar(It.Is<Pedido>(pedido 
                 => pedido.ToExpectedObject(ctx => ctx.Ignore(p => p.Id)).Matches(pedidoEsperado))));
         }
         

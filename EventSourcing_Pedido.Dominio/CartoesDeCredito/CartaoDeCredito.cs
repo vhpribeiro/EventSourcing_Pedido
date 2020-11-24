@@ -3,10 +3,8 @@ using EventSourcing_Pedido.Dominio._Helper;
 
 namespace EventSourcing_Pedido.Dominio.CartoesDeCredito
 {
-    public class CartaoDeCredito
+    public class CartaoDeCredito : Entidade
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Numero { get; set; }
         public string Nome { get; set; }
         public string CVV { get; set; }

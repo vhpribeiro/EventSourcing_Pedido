@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using EventSourcing_Pedido.Aplicacao;
 using EventSourcing_Pedido.Aplicacao.Dtos;
 using EventSourcing_Pedido.Aplicacao.Pedidos;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +12,21 @@ namespace EventSourcing_Pedido.API.Controllers
     {
         private readonly ICriacaoDePedido _criacaoDePedido;
         private readonly IAtualizacaoDePedido _atualizacaoDePedido;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PedidosController(ICriacaoDePedido criacaoDePedido, IAtualizacaoDePedido atualizacaoDePedido)
+        public PedidosController(ICriacaoDePedido criacaoDePedido, IAtualizacaoDePedido atualizacaoDePedido,
+            IUnitOfWork unitOfWork)
         {
             _criacaoDePedido = criacaoDePedido;
             _atualizacaoDePedido = atualizacaoDePedido;
+            _unitOfWork = unitOfWork;
         }
         
         [HttpPost]
         public async Task<ActionResult> CriarPedido([FromBody] PedidoDto pedidoDto)
         {
             await _criacaoDePedido.Criar(pedidoDto);
+            await _unitOfWork.Commit();
             return Ok(true);
         }
 
@@ -31,6 +36,7 @@ namespace EventSourcing_Pedido.API.Controllers
             [FromBody] CartaoDeCreditoDto novoCartaoDeCreditoDto)
         {
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, novoCartaoDeCreditoDto);
+            await _unitOfWork.Commit();
             return Ok(true);
         }
     }

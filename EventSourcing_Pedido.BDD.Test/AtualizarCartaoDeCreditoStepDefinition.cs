@@ -46,7 +46,7 @@ namespace EventSourcing_Pedido.BDD.Test
             var mensageria = new Mock<IBus>();
             var atualizacaoDePedido = new AtualizacaoDePedido(pedidoRepositorio.Object, eventoRepositorio.Object, mensageria.Object);
             pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(It.IsAny<int>())).Returns(pedido);
-            pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            pedidoRepositorio.Setup(pr => pr.Adicionar(It.IsAny<Pedido>()));
 
             atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, cartaoDeCreditoDto);
         }
