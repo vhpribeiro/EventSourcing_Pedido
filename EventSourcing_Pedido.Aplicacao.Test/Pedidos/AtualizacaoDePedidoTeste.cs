@@ -48,7 +48,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             };
             var pedido = PedidoBuilder.Novo().Criar();
             _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            _pedidoRepositorio.Setup(pr => pr.Adicionar(It.IsAny<Pedido>()));
             
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, cartaoDeCreditoDto);
             
@@ -74,7 +74,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             };
             var pedido = PedidoBuilder.Novo().Criar();
             _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            _pedidoRepositorio.Setup(pr => pr.Adicionar(It.IsAny<Pedido>()));
 
             
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, cartaoDeCreditoDto);
@@ -101,7 +101,7 @@ namespace EventSourcing_Pedido.Aplicacao.Test.Pedidos
             };
             var pedido = PedidoBuilder.Novo().Criar();
             _pedidoRepositorio.Setup(pr => pr.ObterPedidoPeloId(idDoPedido)).Returns(pedido);
-            _pedidoRepositorio.Setup(pr => pr.Salvar(It.IsAny<Pedido>()));
+            _pedidoRepositorio.Setup(pr => pr.Adicionar(It.IsAny<Pedido>()));
             
             await _atualizacaoDePedido.AtualizarCartaoDeCredito(idDoPedido, cartaoDeCreditoDto);
             

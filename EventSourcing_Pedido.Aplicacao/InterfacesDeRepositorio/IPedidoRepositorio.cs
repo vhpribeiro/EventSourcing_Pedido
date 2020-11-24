@@ -5,7 +5,7 @@ namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
 {
     public interface IPedidoRepositorio
     {
-        Task Salvar(Pedido pedido);
+        void Adicionar(Pedido pedido);
         Pedido ObterPedidoPeloId(int idDoPedido);
         Task AtualizarPedido(Pedido pedido);
     }

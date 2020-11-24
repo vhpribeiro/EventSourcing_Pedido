@@ -5,10 +5,8 @@ using EventSourcing_Pedido.Dominio.CartoesDeCredito;
 
 namespace EventSourcing_Pedido.Dominio.Pedidos
 {
-    public class Pedido
+    public class Pedido : Entidade
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Produto { get; set; }
         public int Quantidade { get; set; }
         public decimal Valor { get; set; }
