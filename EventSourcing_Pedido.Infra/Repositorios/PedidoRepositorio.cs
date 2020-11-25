@@ -18,6 +18,12 @@ namespace EventSourcing_Pedido.Infra.Repositorios
         {
             return _pedidoContext.Pedidos.First(p => p.Id == idDoPedido);
         }
+        
+        public void Salvar(Pedido pedido)
+        {
+            _pedidoContext.Pedidos.Add(pedido);
+            _pedidoContext.SaveChanges();
+        }
 
         public async Task AtualizarPedido(Pedido pedido)
         {

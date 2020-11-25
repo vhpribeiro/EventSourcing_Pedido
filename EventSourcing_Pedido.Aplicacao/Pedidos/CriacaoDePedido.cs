@@ -25,7 +25,7 @@ namespace EventSourcing_Pedido.Aplicacao.Pedidos
         public async Task Criar(PedidoDto pedidoDto)
         {
             var pedido = MapeadorDePedido.Mapear(pedidoDto);
-            _pedidoRepositorio.Adicionar(pedido);
+            _pedidoRepositorio.Salvar(pedido);
 
             await NotificarCriacaoDePedidoAoServicoDePagamento(pedido);
         }

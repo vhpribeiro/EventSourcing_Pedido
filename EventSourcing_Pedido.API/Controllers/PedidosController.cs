@@ -26,7 +26,6 @@ namespace EventSourcing_Pedido.API.Controllers
         public async Task<ActionResult> CriarPedido([FromBody] PedidoDto pedidoDto)
         {
             await _criacaoDePedido.Criar(pedidoDto);
-            await _unitOfWork.Commit();
             return Ok(true);
         }
 

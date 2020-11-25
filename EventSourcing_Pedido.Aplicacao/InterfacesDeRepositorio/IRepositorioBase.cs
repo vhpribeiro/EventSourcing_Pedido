@@ -1,6 +1,8 @@
-﻿namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
+﻿using EventSourcing_Pedido.Dominio._Helper;
+
+namespace EventSourcing_Pedido.Aplicacao.InterfacesDeRepositorio
 {
-    public interface IRepositorioBase<TEntidade>
+    public interface IRepositorioBase<TEntidade> where TEntidade : Entidade
     {
         void Adicionar(TEntidade entity);
     }
