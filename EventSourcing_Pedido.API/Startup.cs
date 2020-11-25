@@ -1,4 +1,5 @@
-using EventSourcing_Pedido.API.Configuracoes;
+using EventSourcing_Pedido.API.Filtros;
+using EventSourcing_Pedido.Bootstrap.Configuracoes;
 using EventSourcing_Pedido.Infra.Contexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,10 @@ namespace EventSourcing_Pedido.API
                     b => b.MigrationsAssembly("EventSourcing_Pedido.Infra")));
             ConfiguracaoDeInjecaoDeDependencia.Configurar(services, _configuration);
             ConfiguracaoDoSwagger.Configurar(services);
+            services.AddMvc(config =>
+            {
+                config.Filters.Add(typeof(ExcecaoFiltro));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

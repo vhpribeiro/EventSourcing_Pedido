@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\EventSourcing_Pedido.Aplicacao\EventSourcing_Pedido.Aplicacao.csproj" />
+      <ProjectReference Include="..\EventSourcing_Pedido.Bootstrap\EventSourcing_Pedido.Bootstrap.csproj" />
       <ProjectReference Include="..\EventSourcing_Pedido.Dominio\EventSourcing_Pedido.Dominio.csproj" />
       <ProjectReference Include="..\EventSourcing_Pedido.Infra\EventSourcing_Pedido.Infra.csproj" />
     </ItemGroup>

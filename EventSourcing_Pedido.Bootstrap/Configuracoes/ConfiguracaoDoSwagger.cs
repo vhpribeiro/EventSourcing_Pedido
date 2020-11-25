@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace EventSourcing_Pedido.API.Configuracoes
+namespace EventSourcing_Pedido.Bootstrap.Configuracoes
 {
     public class ConfiguracaoDoSwagger
     {

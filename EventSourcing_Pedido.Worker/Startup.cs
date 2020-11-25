@@ -1,4 +1,4 @@
-using EventSourcing_Pedido.API.Configuracoes;
+using EventSourcing_Pedido.Bootstrap.Configuracoes;
 using EventSourcing_Pedido.Infra.Contexts;
 using EventSourcing_Pedido.Worker.BackgroundServices;
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +21,6 @@ namespace EventSourcing_Pedido.Worker
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //TODO criar uma configuracao própria de injeção de dependência para esse worker
             services.AddControllers();
             services.AddDbContext<PedidoContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"),

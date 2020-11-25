@@ -8,7 +8,7 @@ using EventSourcing_Pedido.Infra.Repositorios;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventSourcing_Pedido.API.Configuracoes
+namespace EventSourcing_Pedido.Bootstrap.Configuracoes
 {
     public static class ConfiguracaoDeInjecaoDeDependencia
     {
